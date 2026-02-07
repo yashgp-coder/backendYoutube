@@ -14,4 +14,14 @@ app.use(express.urlencoded({extended:true,limit:"16kb"})) //to accept data from 
 app.use(express.static("public")) // for files, folder or images to store in local pubic folder.
 app.use(cookieParser())
 
+// import router
+
+import userRouter from "./routes/user.routes.js"
+
+// Router declartion
+
+app.use("/api/v1/users",userRouter)  //not using app.get as we are using middlewares for this
+
+//http://localhost:8000/api/v1/users/register
+
 export {app}
