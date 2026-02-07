@@ -51,11 +51,12 @@ const userSchema= new Schema({
 }
 )
 //Password enycption takes time so async is used
-userSchema.pre("save", async function (next) {
-    if(!this.isModified("password")) return next()  // so that on every save it dont encrpt password
-    this.password=await bcrypt.hash(this.password,10)
-    next()
-})
+userSchema.pre("save", async function () {
+  if (!this.isModified("password")) return;
+
+  this.password = await bcrypt.hash(this.password, 10);
+});
+
 
 userSchema.methods.isPasswordCorrect= async function (password){
     return await bcrypt.compare(password,this.password)
